@@ -5,10 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-//a
 @Entity
-@Table(name = "productos")
-public class Usuarios {
+@Table(name = "usuarios")
+public class Usuario {
     @Id
     @Column(name = "codigo_usuario")
     private int codigoUsuario;
@@ -23,10 +22,9 @@ public class Usuarios {
     @Column
     private int estado;
 
-    public Usuarios(){
-    }
+    public Usuario(){}
 
-    public Usuarios(int codigoUsuario, String username, String password, String email, String rol, int estado) {
+    public Usuario(int codigoUsuario, String username, String password, String email, String rol, int estado) {
         this.codigoUsuario = codigoUsuario;
         this.username = username;
         this.password = password;
