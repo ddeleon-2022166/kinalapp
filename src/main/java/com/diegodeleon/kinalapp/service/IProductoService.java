@@ -11,16 +11,16 @@ public interface IProductoService {
 
     //Metodo que permite guardar productos
     Producto guardarProducto(Producto producto);
-    Optional<Producto> buscarPorCodigoProducto(int codigoProducto);
+    Optional<Producto> buscarPorCodigoProducto(Long codigoProducto);
 
     //Metodo que actualiza un producto
-    Producto actualizarProducto(int codigoProducto, Producto producto);
+    Producto actualizarProducto(Long codigoProducto, Producto producto);
 
     //Metodo que elimina un producto
-    void eliminarProducto(int codigoProducto);
+    void eliminarProducto(Long codigoProducto);
 
     //Metodo que busca un producto por su codigo
-    boolean existePorCodigoProducto(int codigoProducto);
+    boolean existePorCodigoProducto(Long codigoProducto);
 
     //Metodo que devuelve los productos activos
     List<Producto> listarProductosActivos();

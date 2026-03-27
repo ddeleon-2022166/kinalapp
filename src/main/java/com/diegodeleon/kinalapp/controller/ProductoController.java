@@ -28,7 +28,7 @@ public class ProductoController {
 
     //GET que busca un producto mediante el codigo del mismo
     @GetMapping("/{codigoProducto}")
-    public ResponseEntity<Producto> buscarPorCodigoProducto(@PathVariable int codigoProducto) {
+    public ResponseEntity<Producto> buscarPorCodigoProducto(@PathVariable Long codigoProducto) {
         return productoService.buscarPorCodigoProducto(codigoProducto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -47,7 +47,7 @@ public class ProductoController {
 
     //DELETE elimina un producto
     @DeleteMapping("/{codigoProducto}")
-    public ResponseEntity<Void> eliminarProducto(@PathVariable int codigoProducto) {
+    public ResponseEntity<Void> eliminarProducto(@PathVariable Long codigoProducto) {
         try {
             productoService.eliminarProducto(codigoProducto);
             return ResponseEntity.noContent().build();
@@ -65,7 +65,7 @@ public class ProductoController {
 
     //PUT actualizar producto meditante el codigo del mismo
     @PutMapping("/{codigoProducto}")
-    public ResponseEntity<?> actualizarProducto(@PathVariable int codigoProducto, @RequestBody Producto producto){
+    public ResponseEntity<?> actualizarProducto(@PathVariable Long codigoProducto, @RequestBody Producto producto){
         try{
             Producto productoActualizado = productoService.actualizarProducto(codigoProducto, producto);
             return ResponseEntity.ok(productoActualizado);

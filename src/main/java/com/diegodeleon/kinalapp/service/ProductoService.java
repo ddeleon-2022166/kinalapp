@@ -34,13 +34,13 @@ public ProductoService(ProductoRepository productoRepository) { this.productoRep
     //Buscar por el codigo del producto
     @Override
     @Transactional(readOnly = true)
-    public Optional<Producto> buscarPorCodigoProducto(int codigoProducto) {
+    public Optional<Producto> buscarPorCodigoProducto(Long codigoProducto) {
         return productoRepository.findById(codigoProducto);
     }
 
     //Actualizar un producto
     @Override
-    public Producto actualizarProducto(int codigoProducto, Producto producto) {
+    public Producto actualizarProducto(Long codigoProducto, Producto producto) {
         //Actualiza un cliente existente
         if(!productoRepository.existsById(codigoProducto)){
             throw new RuntimeException("El producto no se encontró mediante el código" +codigoProducto);
@@ -52,7 +52,7 @@ public ProductoService(ProductoRepository productoRepository) { this.productoRep
 
     //Eliminar un producto
     @Override
-    public void eliminarProducto(int codigoProducto) {
+    public void eliminarProducto(Long codigoProducto) {
         //Eliminar un cliente
         if(!productoRepository.existsById(codigoProducto)){
             throw new RuntimeException("El producto no se encontró mediante el código" +codigoProducto);
@@ -63,7 +63,7 @@ public ProductoService(ProductoRepository productoRepository) { this.productoRep
     //Buscar por el codigo del producto
     @Override
     @Transactional
-    public boolean existePorCodigoProducto(int codigoProducto) {
+    public boolean existePorCodigoProducto(Long codigoProducto) {
         return productoRepository.existsById(codigoProducto);
     }
 

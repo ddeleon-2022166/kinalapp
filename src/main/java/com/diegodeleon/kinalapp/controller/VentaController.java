@@ -27,7 +27,7 @@ public class VentaController {
 
     //GET que busca una venta mediante el codigo de la misma
     @GetMapping("/{codigoVenta}")
-    public ResponseEntity<Venta> buscarPorCodigoVenta(@PathVariable int codigoVenta) {
+    public ResponseEntity<Venta> buscarPorCodigoVenta(@PathVariable Long codigoVenta) {
         return ventaService.buscarPorCodigoVenta(codigoVenta)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -46,7 +46,7 @@ public class VentaController {
 
     //DELETE elimina una venta
     @DeleteMapping("/{codigoVenta}")
-    public ResponseEntity<Void> eliminarVenta(@PathVariable int codigoVenta) {
+    public ResponseEntity<Void> eliminarVenta(@PathVariable Long codigoVenta) {
         try {
             ventaService.eliminarVenta(codigoVenta);
             return ResponseEntity.noContent().build();
@@ -64,7 +64,7 @@ public class VentaController {
 
     //PUT actualizar venta mediante el codigo de la misma
     @PutMapping("/{codigoVenta}")
-    public ResponseEntity<?> actualizarVenta(@PathVariable int codigoVenta, @RequestBody Venta venta){
+    public ResponseEntity<?> actualizarVenta(@PathVariable Long codigoVenta, @RequestBody Venta venta){
         try{
             Venta ventaActualizada = ventaService.actualizarVenta(codigoVenta, venta);
             return ResponseEntity.ok(ventaActualizada);

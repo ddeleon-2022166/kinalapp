@@ -9,7 +9,7 @@ public class Venta {
 
     @Id
     @Column(name = "codigo_venta")
-    private int codigoVenta;
+    private Long codigoVenta;
 
     @Column
     private String fecha;
@@ -34,7 +34,7 @@ public class Venta {
     public Venta() {
     }
 
-    public Venta(int codigoVenta, String fecha, double total, int estado, Usuario usuario, Cliente cliente, List<DetalleVenta> detalles) {
+    public Venta(Long codigoVenta, String fecha, double total, int estado, Usuario usuario, Cliente cliente, List<DetalleVenta> detalles) {
         this.codigoVenta = codigoVenta;
         this.fecha = fecha;
         this.total = total;
@@ -44,9 +44,9 @@ public class Venta {
         this.detalles = detalles;
     }
 
-    public int getCodigoVenta() { return codigoVenta; }
+    public Long getCodigoVenta() { return codigoVenta; }
 
-    public void setCodigoVenta(int codigoVenta) { this.codigoVenta = codigoVenta; }
+    public void setCodigoVenta(Long codigoVenta) { this.codigoVenta = codigoVenta; }
 
     public String getFecha() { return fecha; }
 

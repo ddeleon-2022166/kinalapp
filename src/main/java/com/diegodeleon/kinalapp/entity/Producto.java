@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 public class Producto {
     @Id
     @Column(name = "codigo_producto")
-    private int codigoProducto;
+    private Long codigoProducto;
     @Column
     private String nombreProducto;
     @Column
@@ -25,7 +25,7 @@ public class Producto {
     }
 
 
-    public Producto(int codigoProducto, String nombreProducto, int stock, double precio, int estado) {
+    public Producto(Long codigoProducto, String nombreProducto, int stock, double precio, int estado) {
         this.codigoProducto = codigoProducto;
         this.nombreProducto = nombreProducto;
         this.stock = stock;
@@ -33,9 +33,9 @@ public class Producto {
         this.estado = estado;
     }
 
-    public int getCodigoProducto() { return codigoProducto; }
+    public Long getCodigoProducto() { return codigoProducto; }
 
-    public void setCodigoProducto(int codigoProducto) { this.codigoProducto = codigoProducto; }
+    public void setCodigoProducto(Long codigoProducto) { this.codigoProducto = codigoProducto; }
 
     public String getNombreProducto() { return nombreProducto; }
 
