@@ -24,17 +24,18 @@ public class Producto {
     public Producto(){
     }
 
-    public Producto(Integer codigoProducto, String nombreProducto, double precio, Integer stock, Integer estado) {
+
+    public Producto(int codigoProducto, String nombreProducto, int stock, double precio, int estado) {
         this.codigoProducto = codigoProducto;
         this.nombreProducto = nombreProducto;
-        this.precio = precio;
         this.stock = stock;
+        this.precio = precio;
         this.estado = estado;
     }
 
-    public Integer getCodigoProducto() {return codigoProducto; }
+    public int getCodigoProducto() { return codigoProducto; }
 
-    public void setCodigoProducto(Integer codigoProducto) { this.codigoProducto = codigoProducto; }
+    public void setCodigoProducto(int codigoProducto) { this.codigoProducto = codigoProducto; }
 
     public String getNombreProducto() { return nombreProducto; }
 
@@ -44,13 +45,11 @@ public class Producto {
 
     public void setPrecio(double precio) { this.precio = precio; }
 
-    public Integer getStock() { return stock; }
+    public int getStock() { return stock; }
 
-    public void setStock(Integer stock) { this.stock = stock; }
+    public void setStock(int stock) { this.stock = stock; }
 
-    public Integer getEstado() { return estado; }
+    public int getEstado() { return estado; }
 
-    public void setEstado(Integer estado) {
-        this.estado = estado;
-    }
+    public void setEstado(int estado) { this.estado = estado; }
 }
