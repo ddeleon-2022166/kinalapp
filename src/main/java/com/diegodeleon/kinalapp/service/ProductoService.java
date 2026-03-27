@@ -69,7 +69,7 @@ public ProductoService(ProductoRepository productoRepository) { this.productoRep
 
     //Metodo privado, validar productos
     private void validarProducto(Producto producto){
-        if (producto.getCodigoProducto() == null) {
+        if (producto.getCodigoProducto() == 0) {
             throw new IllegalArgumentException("El Código del Producto es obligatorio");
         }
 
@@ -81,7 +81,7 @@ public ProductoService(ProductoRepository productoRepository) { this.productoRep
             throw new IllegalArgumentException("El precio debe ser mayor a 0");
         }
 
-        if (producto.getStock() == null || producto.getStock() < 0) {
+        if (producto.getStock() == 0 || producto.getStock() < 0) {
             throw new IllegalArgumentException("El stock no puede ser negativo");
         }
 
