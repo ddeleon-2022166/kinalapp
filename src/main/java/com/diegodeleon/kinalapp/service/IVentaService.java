@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IVentaService {
-    //Metodo que lista todas las ventas
+    //Metodo que lista todas las ventas a
     List<Venta> listarVentas();
 
     //Metodo que permite guardar ventas
@@ -15,7 +15,7 @@ public interface IVentaService {
     //Metodo que actualiza una venta
     Venta actualizarVenta(int codigoVenta, Venta venta);
 
-    //Metodo que elimina una venta
+    //Metodo que elimina una venta a
     void eliminarVenta(int codigoVenta);
 
     //Metodo que busca una venta por su codigo
