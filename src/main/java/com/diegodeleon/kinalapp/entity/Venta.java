@@ -8,7 +8,6 @@ import java.util.List;
 public class Venta {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo_venta")
     private int codigoVenta;
 
