@@ -34,13 +34,13 @@ public class VentaService implements IVentaService{
     //Buscar por el codigo de la venta
     @Override
     @Transactional(readOnly = true)
-    public Optional<Venta> buscarPorCodigoVenta(int codigoVenta) {
+    public Optional<Venta> buscarPorCodigoVenta(Long codigoVenta) {
         return ventaRepository.findById(codigoVenta);
     }
 
     //Actualizar una venta
     @Override
-    public Venta actualizarVenta(int codigoVenta, Venta venta) {
+    public Venta actualizarVenta(Long codigoVenta, Venta venta) {
         //Actualiza un usuario existente
         if(!ventaRepository.existsById(codigoVenta)){
             throw new RuntimeException("La venta no se encontró por el código" +codigoVenta);
@@ -52,7 +52,7 @@ public class VentaService implements IVentaService{
 
     //Eliminar una venta
     @Override
-    public void eliminarVenta(int codigoVenta) {
+    public void eliminarVenta(Long codigoVenta) {
         if(!ventaRepository.existsById(codigoVenta)){
             throw new RuntimeException("La venta no se encontró por el código" +codigoVenta);
         }
@@ -62,7 +62,7 @@ public class VentaService implements IVentaService{
     //Buscar por el codigo de la venta
     @Override
     @Transactional
-    public boolean existePorCodigoVenta(int codigoVenta) {
+    public boolean existePorCodigoVenta(Long codigoVenta) {
         return ventaRepository.existsById(codigoVenta);
     }
 

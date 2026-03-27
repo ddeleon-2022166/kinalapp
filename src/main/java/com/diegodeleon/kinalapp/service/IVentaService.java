@@ -10,16 +10,16 @@ public interface IVentaService {
 
     //Metodo que permite guardar ventas
     Venta guardarVenta(Venta venta);
-    Optional<Venta> buscarPorCodigoVenta(int codigoVenta);
+    Optional<Venta> buscarPorCodigoVenta(Long codigoVenta);
 
     //Metodo que actualiza una venta
-    Venta actualizarVenta(int codigoVenta, Venta venta);
+    Venta actualizarVenta(Long codigoVenta, Venta venta);
 
     //Metodo que elimina una venta a
-    void eliminarVenta(int codigoVenta);
+    void eliminarVenta(Long codigoVenta);
 
     //Metodo que busca una venta por su codigo
-    boolean existePorCodigoVenta(int codigoVenta);
+    boolean existePorCodigoVenta(Long codigoVenta);
 
     //Metodo que devuelve las ventas activas
     List<Venta> listarVentasActivos();

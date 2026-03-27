@@ -9,7 +9,7 @@ public class DetalleVenta {
 
     @Id
     @Column(name = "codigo_detalle_venta")
-    private int codigoDetalleVenta;
+    private Long codigoDetalleVenta;
 
     @Column
     private int cantidad;
@@ -31,7 +31,7 @@ public class DetalleVenta {
 
     public DetalleVenta() {}
 
-    public DetalleVenta(int codigoDetalleVenta, int cantidad, double precioUnitario, double subtotal, Venta venta, Producto producto) {
+    public DetalleVenta(Long codigoDetalleVenta, int cantidad, double precioUnitario, double subtotal, Venta venta, Producto producto) {
         this.codigoDetalleVenta = codigoDetalleVenta;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
@@ -40,9 +40,9 @@ public class DetalleVenta {
         this.producto = producto;
     }
 
-    public int getCodigoDetalleVenta() { return codigoDetalleVenta; }
+    public Long getCodigoDetalleVenta() { return codigoDetalleVenta; }
 
-    public void setCodigoDetalleVenta(int codigoDetalleVenta) { this.codigoDetalleVenta = codigoDetalleVenta; }
+    public void setCodigoDetalleVenta(Long codigoDetalleVenta) { this.codigoDetalleVenta = codigoDetalleVenta; }
 
     public int getCantidad() { return cantidad; }
 

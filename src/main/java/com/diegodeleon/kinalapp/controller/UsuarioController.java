@@ -25,7 +25,7 @@ public class UsuarioController {
 
     //GET que busca un usuario mediante el codigo del mismo
     @GetMapping("/{codigoUsuario}")
-    public ResponseEntity<Usuario> buscarPorCodigoUsuario(@PathVariable int codigoUsuario) {
+    public ResponseEntity<Usuario> buscarPorCodigoUsuario(@PathVariable Long codigoUsuario) {
         return usuarioService.buscarPorCodigoUsuario(codigoUsuario)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -44,7 +44,7 @@ public class UsuarioController {
 
     //DELETE elimina un usuario
     @DeleteMapping("/{codigoUsuario}")
-    public ResponseEntity<Void> eliminarUsuario(@PathVariable int codigoUsuario) {
+    public ResponseEntity<Void> eliminarUsuario(@PathVariable Long codigoUsuario) {
         try {
             usuarioService.eliminarUsuario(codigoUsuario);
             return ResponseEntity.noContent().build();
@@ -62,7 +62,7 @@ public class UsuarioController {
 
     //PUT actualizar usuario mediante el codigo del mismo
     @PutMapping("/{codigoUsuario}")
-    public ResponseEntity<?> actualizarUsuario(@PathVariable int codigoUsuario, @RequestBody Usuario usuario){
+    public ResponseEntity<?> actualizarUsuario(@PathVariable Long codigoUsuario, @RequestBody Usuario usuario){
         try{
             Usuario usuarioActualizado = usuarioService.actualizarUsuario(codigoUsuario, usuario);
             return ResponseEntity.ok(usuarioActualizado);

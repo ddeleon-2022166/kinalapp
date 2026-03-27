@@ -34,13 +34,13 @@ public UsuarioService(UsuarioRepository usuarioRepository) { this.usuarioReposit
     //Buscar por el codigo del usuario
     @Override
     @Transactional(readOnly = true)
-    public Optional<Usuario> buscarPorCodigoUsuario(int codigoUsuario) {
+    public Optional<Usuario> buscarPorCodigoUsuario(Long codigoUsuario) {
         return usuarioRepository.findById(codigoUsuario);
     }
 
     //Actualizar un usuario
     @Override
-    public Usuario actualizarUsuario(int codigoUsuario, Usuario usuario) {
+    public Usuario actualizarUsuario(Long codigoUsuario, Usuario usuario) {
         //Actualiza un usuario existente
         if(!usuarioRepository.existsById(codigoUsuario)){
             throw new RuntimeException("El usuario no se encontró mediante el código" +codigoUsuario);
@@ -52,7 +52,7 @@ public UsuarioService(UsuarioRepository usuarioRepository) { this.usuarioReposit
 
     //Eliminar un usuario
     @Override
-    public void eliminarUsuario(int codigoUsuario) {
+    public void eliminarUsuario(Long codigoUsuario) {
         if(!usuarioRepository.existsById(codigoUsuario)){
             throw new RuntimeException("El usuario no se encontró mediante el código" +codigoUsuario);
         }
@@ -62,7 +62,7 @@ public UsuarioService(UsuarioRepository usuarioRepository) { this.usuarioReposit
     //Buscar por el codigo del usuario
     @Override
     @Transactional
-    public boolean existePorCodigoUsuario(int codigoUsuario) {
+    public boolean existePorCodigoUsuario(Long codigoUsuario) {
         return usuarioRepository.existsById(codigoUsuario);
     }
 
