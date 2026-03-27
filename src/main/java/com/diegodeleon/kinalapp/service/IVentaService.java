@@ -1,0 +1,26 @@
+package com.diegodeleon.kinalapp.service;
+import com.diegodeleon.kinalapp.entity.Venta;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface IVentaService {
+    //Metodo que lista todas las ventas
+    List<Venta> listarVentas();
+
+    //Metodo que permite guardar ventas
+    Venta guardarVenta(Venta venta);
+    Optional<Venta> buscarPorCodigoVenta(int codigoVenta);
+
+    //Metodo que actualiza una venta
+    Venta actualizarVenta(int codigoVenta, Venta venta);
+
+    //Metodo que elimina una venta
+    void eliminarVenta(int codigoVenta);
+
+    //Metodo que busca una venta por su codigo
+    boolean existePorCodigoVenta(int codigoVenta);
+
+    //Metodo que devuelve las ventas activas
+    List<Venta> listarVentasActivos();
+}
