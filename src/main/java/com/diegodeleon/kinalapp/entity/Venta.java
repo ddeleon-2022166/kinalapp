@@ -21,10 +21,10 @@ public class Venta {
     @Column
     private int estado;
 
-    @Transient  // Esta anotación evita que se guarde en la base de datos
+    @Transient
     private Long usuarioId;
 
-    @Transient  // Esta anotación evita que se guarde en la base de datos
+    @Transient
     private String clienteDpi;
 
     @ManyToOne
