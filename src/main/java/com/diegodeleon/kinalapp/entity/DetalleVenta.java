@@ -8,17 +8,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class DetalleVenta {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo_detalle_venta")
     private Long codigoDetalleVenta;
 
     @Column
-    private int cantidad;
+    private Integer cantidad;
 
     @Column(name = "precio_unitario")
-    private double precioUnitario;
+    private Double precioUnitario;
 
     @Column
-    private double subtotal;
+    private Double subtotal;
+
+    @Transient
+    private Long ventaId;
+
+    @Transient
+    private Long productoId;
 
     @ManyToOne
     @JoinColumn(name = "ventas_codigo_venta")
@@ -31,11 +38,13 @@ public class DetalleVenta {
 
     public DetalleVenta() {}
 
-    public DetalleVenta(Long codigoDetalleVenta, int cantidad, double precioUnitario, double subtotal, Venta venta, Producto producto) {
+    public DetalleVenta(Long codigoDetalleVenta, Integer cantidad, Double precioUnitario, Double subtotal, Long ventaId, Long productoId, Venta venta, Producto producto) {
         this.codigoDetalleVenta = codigoDetalleVenta;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
         this.subtotal = subtotal;
+        this.ventaId = ventaId;
+        this.productoId = productoId;
         this.venta = venta;
         this.producto = producto;
     }
@@ -44,17 +53,25 @@ public class DetalleVenta {
 
     public void setCodigoDetalleVenta(Long codigoDetalleVenta) { this.codigoDetalleVenta = codigoDetalleVenta; }
 
-    public int getCantidad() { return cantidad; }
+    public Integer getCantidad() { return cantidad; }
 
-    public void setCantidad(int cantidad) { this.cantidad = cantidad; }
+    public void setCantidad(Integer cantidad) { this.cantidad = cantidad; }
 
-    public double getPrecioUnitario() { return precioUnitario; }
+    public Double getPrecioUnitario() { return precioUnitario; }
 
-    public void setPrecioUnitario(double precioUnitario) { this.precioUnitario = precioUnitario; }
+    public void setPrecioUnitario(Double precioUnitario) { this.precioUnitario = precioUnitario; }
 
-    public double getSubtotal() { return subtotal; }
+    public Double getSubtotal() { return subtotal; }
 
-    public void setSubtotal(double subtotal) { this.subtotal = subtotal; }
+    public void setSubtotal(Double subtotal) { this.subtotal = subtotal; }
+
+    public Long getVentaId() { return ventaId; }
+
+    public void setVentaId(Long ventaId) { this.ventaId = ventaId; }
+
+    public Long getProductoId() { return productoId; }
+
+    public void setProductoId(Long productoId) { this.productoId = productoId; }
 
     public Venta getVenta() { return venta; }
 

@@ -8,6 +8,7 @@ import java.util.List;
 public class Venta {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo_venta")
     private Long codigoVenta;
 
@@ -19,6 +20,12 @@ public class Venta {
 
     @Column
     private int estado;
+
+    @Transient  // Esta anotación evita que se guarde en la base de datos
+    private Long usuarioId;
+
+    @Transient  // Esta anotación evita que se guarde en la base de datos
+    private String clienteDpi;
 
     @ManyToOne
     @JoinColumn(name = "usuarios_codigo_usuario")
@@ -34,11 +41,13 @@ public class Venta {
     public Venta() {
     }
 
-    public Venta(Long codigoVenta, String fecha, double total, int estado, Usuario usuario, Cliente cliente, List<DetalleVenta> detalles) {
+    public Venta(Long codigoVenta, String fecha, double total, int estado, Long usuarioId, String clienteDpi, Usuario usuario, Cliente cliente, List<DetalleVenta> detalles) {
         this.codigoVenta = codigoVenta;
         this.fecha = fecha;
         this.total = total;
         this.estado = estado;
+        this.usuarioId = usuarioId;
+        this.clienteDpi = clienteDpi;
         this.usuario = usuario;
         this.cliente = cliente;
         this.detalles = detalles;
@@ -60,6 +69,14 @@ public class Venta {
 
     public void setEstado(int estado) { this.estado = estado; }
 
+    public Long getUsuarioId() { return usuarioId; }
+
+    public void setUsuarioId(Long usuarioId) { this.usuarioId = usuarioId; }
+
+    public String getClienteDpi() { return clienteDpi; }
+
+    public void setClienteDpi(String clienteDpi) { this.clienteDpi = clienteDpi; }
+
     public Usuario getUsuario() { return usuario; }
 
     public void setUsuario(Usuario usuario) { this.usuario = usuario; }
@@ -72,4 +89,3 @@ public class Venta {
 
     public void setDetalles(List<DetalleVenta> detalles) { this.detalles = detalles; }
 }
-
