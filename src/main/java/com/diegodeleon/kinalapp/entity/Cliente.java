@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 public class Cliente {
     @Id
     @Column(name = "dpi_cliente")
+    @JsonProperty("DPICliente")
     private String DPICliente;
     @Column
     private String nombreCliente;

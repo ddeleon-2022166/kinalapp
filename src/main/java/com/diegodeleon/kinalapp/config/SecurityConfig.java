@@ -3,9 +3,7 @@ package com.diegodeleon.kinalapp.config;
 import com.diegodeleon.kinalapp.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,7 +12,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    //Configuración principal
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http,
                                            DaoAuthenticationProvider authProvider) throws Exception {
@@ -23,6 +20,11 @@ public class SecurityConfig {
                 .authenticationProvider(authProvider)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/public/**").permitAll()
+                        .requestMatchers("/clientes/**").permitAll()
+                        .requestMatchers("/productos/**").permitAll()
+                        .requestMatchers("/usuarios/**").permitAll()
+                        .requestMatchers("/ventas/**").permitAll()
+                        .requestMatchers("/detalle-ventas/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
@@ -40,7 +42,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    //Conexión con tu UserDetailsService
     @Bean
     public DaoAuthenticationProvider authenticationProvider(
             CustomUserDetailsService userDetailsService,
@@ -53,7 +54,6 @@ public class SecurityConfig {
         return authProvider;
     }
 
-    //Encriptación
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

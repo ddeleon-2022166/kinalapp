@@ -9,13 +9,21 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 //@RestController = @Controller + @ResponseBody
 @RequestMapping("/clientes")
 //Todas las rutas en este controlador deben empezar con /clientes
 public class ClienteController {
-
+    @PostMapping("/test")
+    public ResponseEntity<?> testCliente(@RequestBody Map<String, Object> payload) {
+        System.out.println("=== TEST CLIENTE ===");
+        System.out.println("Payload recibido: " + payload);
+        System.out.println("DPI: " + payload.get("DPICliente"));
+        System.out.println("===================");
+        return ResponseEntity.ok(payload);
+    }
     private final ClienteService clienteService;
 
 
