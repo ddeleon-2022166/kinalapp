@@ -19,13 +19,17 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authenticationProvider(authProvider)
                 .authorizeHttpRequests(auth -> auth
+                        // Recursos estáticos
+                        .requestMatchers("/css/**", "/styles.css", "/static/**", "/favicon.ico", "/logo.png").permitAll()
+                        // Rutas públicas
                         .requestMatchers("/login", "/public/**").permitAll()
+                        // APIs REST (si las mantienes)
                         .requestMatchers("/clientes/**").permitAll()
                         .requestMatchers("/productos/**").permitAll()
-                        .requestMatchers("/usuarios/**").permitAll()
                         .requestMatchers("/ventas/**").permitAll()
                         .requestMatchers("/detalle-ventas/**").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        // Vistas web
+                        .requestMatchers("/web/usuarios/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
