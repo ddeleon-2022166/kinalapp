@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}">Formulario - KinalApp</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>kinalApp</h2>
+            <p>Menú</p>
+        </div>
+        <nav>
+            <a href="/home" class="nav-item">🏠 Tablero</a>
+            <a href="/web/productos" class="nav-item">🛍️ Productos</a>
+            <a href="/web/clientes" class="nav-item active">👤 Clientes</a>
+            <a href="/web/ventas" class="nav-item">💰 Ventas</a>
+            <a sec:authorize="hasRole('ADMIN')" href="/web/usuarios" class="nav-item">👥 Usuarios</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="nav-item logout-btn">📤 Cerrar Sesión</button>
+            </form>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <h1 class="page-title" th:text="${titulo}">Usuario</h1>
+            <div class="user-info">
+                <span><strong sec:authentication="name"></strong></span>
+                <div class="user-avatar">
+                    <span sec:authentication="name" th:text="${#strings.substring(#strings.toUpperCase(#strings.substring(_, 0, 1)), 0, 1)}">U</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <!-- Formulario para CREAR -->
+            <form th:action="@{/web/usuarios/guardar}"
+                  th:object="${usuario}"
+                  method="post"
+                  th:if="${accion == 'Crear'}">
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>Código *</label>
+                        <input type="number" th:field="*{codigoUsuario}" required>
+                    </div>
+                    <div class="form-field">
+                        <label>Username *</label>
+                        <input type="text" th:field="*{username}" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>Contraseña *</label>
+                        <input type="password" th:field="*{password}" required>
+                    </div>
+                    <div class="form-field">
+                        <label>Email *</label>
+                        <input type="email" th:field="*{email}" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>Rol *</label>
+                        <select th:field="*{rol}" required>
+                            <option value="">Seleccione un rol</option>
+                            <option value="ADMIN">👑 Administrador</option>
+                            <option value="USER">👤 Usuario</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label>Estado</label>
+                        <select th:field="*{estado}">
+                            <option th:value="1">✓ Activo</option>
+                            <option th:value="0">✗ Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <a href="/web/usuarios" class="btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn-primary">💾 Guardar</button>
+                </div>
+            </form>
+
+            <!-- Formulario para ACTUALIZAR -->
+            <form th:action="@{/web/usuarios/actualizar/{id}(id=${usuario.codigoUsuario})}"
+                  th:object="${usuario}"
+                  method="post"
+                  th:if="${accion == 'Actualizar'}">
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>Código *</label>
+                        <input type="number" th:field="*{codigoUsuario}" required readonly>
+                    </div>
+                    <div class="form-field">
+                        <label>Username *</label>
+                        <input type="text" th:field="*{username}" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>Contraseña</label>
+                        <input type="password" th:field="*{password}">
+                        <small style="color: #666; font-size: 12px;">Dejar en blanco para mantener la actual</small>
+                    </div>
+                    <div class="form-field">
+                        <label>Email *</label>
+                        <input type="email" th:field="*{email}" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>Rol *</label>
+                        <select th:field="*{rol}" required>
+                            <option value="">Seleccione un rol</option>
+                            <option value="ADMIN">👑 Administrador</option>
+                            <option value="USER">👤 Usuario</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label>Estado</label>
+                        <select th:field="*{estado}">
+                            <option th:value="1">✓ Activo</option>
+                            <option th:value="0">✗ Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <a href="/web/usuarios" class="btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn-primary">💾 Actualizar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>
