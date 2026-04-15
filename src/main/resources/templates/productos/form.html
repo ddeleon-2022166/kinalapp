@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}">Formulario - KinalApp</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>kinalApp</h2>
+            <p>Menú</p>
+        </div>
+        <nav>
+            <a href="/home" class="nav-item">🏠 Tablero</a>
+            <a href="/web/productos" class="nav-item active">🛍️ Productos</a>
+            <a href="/web/clientes" class="nav-item">👤 Clientes</a>
+            <a href="/web/ventas" class="nav-item">💰 Ventas</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="nav-item logout-btn">🚪 Cerrar Sesión</button>
+            </form>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <h1 class="page-title" th:text="${titulo}">Producto</h1>
+            <div class="user-info">
+                <span><strong sec:authentication="name"></strong></span>
+                <div class="user-avatar">
+                    <span sec:authentication="name" th:text="${#strings.substring(#strings.toUpperCase(#strings.substring(_, 0, 1)), 0, 1)}">U</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form th:action="@{/web/productos/guardar}" th:object="${producto}" method="post">
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>Código *</label>
+                        <input type="number" th:field="*{codigoProducto}" required>
+                    </div>
+                    <div class="form-field">
+                        <label>Nombre *</label>
+                        <input type="text" th:field="*{nombreProducto}" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>Precio (Q) *</label>
+                        <input type="number" step="0.01" th:field="*{precio}" required>
+                    </div>
+                    <div class="form-field">
+                        <label>Stock *</label>
+                        <input type="number" th:field="*{stock}" required>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label>Estado</label>
+                    <select th:field="*{estado}">
+                        <option th:value="1">✓ Activo</option>
+                        <option th:value="0">✗ Inactivo</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <a href="/web/productos" class="btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn-primary">💾 Guardar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>
