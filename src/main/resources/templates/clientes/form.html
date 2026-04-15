@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}">Formulario - KinalApp</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>kinalapp</h2>
+            <p>Menú</p>
+        </div>
+        <nav>
+            <a href="/home" class="nav-item">🏠 Tablero</a>
+            <a href="/web/productos" class="nav-item">🛍️ Productos</a>
+            <a href="/web/clientes" class="nav-item active">👤 Clientes</a>
+            <a href="/web/ventas" class="nav-item">💰 Ventas</a>
+            <a sec:authorize="hasRole('ADMIN')" href="/web/usuarios" class="nav-item">👥 Usuarios</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="nav-item logout-btn">📤 Cerrar Sesión</button>
+            </form>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <h1 class="page-title" th:text="${titulo}">Cliente</h1>
+            <div class="user-info">
+                <span><strong sec:authentication="name"></strong></span>
+                <div class="user-avatar">
+                    <span sec:authentication="name" th:text="${#strings.substring(#strings.toUpperCase(#strings.substring(_, 0, 1)), 0, 1)}">U</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form th:action="@{/web/clientes/guardar}" th:object="${cliente}" method="post">
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>DPI *</label>
+                        <input type="text" th:field="*{DPICliente}" maxlength="13" placeholder="1234567890123" required>
+                        <small style="color: #666; font-size: 12px;">13 dígitos sin guiones</small>
+                    </div>
+                    <div class="form-field">
+                        <label>Nombre *</label>
+                        <input type="text" th:field="*{nombreCliente}" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>Apellido *</label>
+                        <input type="text" th:field="*{apellidoCliente}" required>
+                    </div>
+                    <div class="form-field">
+                        <label>Dirección</label>
+                        <input type="text" th:field="*{direccion}" placeholder="Dirección completa">
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label>Estado</label>
+                    <select th:field="*{estado}">
+                        <option th:value="1">✓ Activo</option>
+                        <option th:value="0">✗ Inactivo</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <a href="/web/clientes" class="btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn-primary">📁 Guardar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>
