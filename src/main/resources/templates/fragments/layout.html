@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo} != null ? ${titulo} + ' | KinalApp' : 'KinalApp'">KinalApp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        .sidebar-item:hover { background: rgba(255,255,255,0.1); border-left: 3px solid white; }
+        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="bg-gray-50">
+<div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="w-64 gradient-bg shadow-xl">
+        <div class="p-6">
+            <h1 class="text-2xl font-bold text-white">KinalApp</h1>
+            <p class="text-purple-200 text-sm mt-1">Gestión de Productos</p>
+        </div>
+        <nav class="mt-6">
+            <a href="/home" class="sidebar-item block px-6 py-3 text-white hover:text-white transition">
+                <i class="fas fa-home w-5 mr-3"></i> Dashboard
+            </a>
+            <a href="/web/productos" class="sidebar-item block px-6 py-3 text-white hover:text-white transition">
+                <i class="fas fa-box w-5 mr-3"></i> Productos
+            </a>
+            <form th:action="@{/logout}" method="post" class="mt-10">
+                <button type="submit" class="sidebar-item w-full text-left px-6 py-3 text-white hover:text-white transition">
+                    <i class="fas fa-sign-out-alt w-5 mr-3"></i> Cerrar Sesión
+                </button>
+            </form>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 overflow-y-auto">
+        <nav class="bg-white shadow-sm sticky top-0 z-10">
+            <div class="px-6 py-4 flex justify-between items-center">
+                <h2 class="text-xl font-semibold text-gray-800" th:text="${titulo}">KinalApp</h2>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-600" sec:authentication="name"></span>
+                    <div class="w-8 h-8 gradient-bg rounded-full flex items-center justify-center text-white font-bold">
+                        <span sec:authentication="name" th:text="${#strings.substring(#strings.toUpperCase(#strings.substring(_, 0, 1)), 0, 1)}">U</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="p-6" th:replace="${content}">
+            Contenido
+        </div>
+    </div>
+</div>
+</body>
+</html>
