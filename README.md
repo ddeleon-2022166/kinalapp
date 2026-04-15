@@ -49,53 +49,30 @@ Antes de ejecutar la aplicación, debe tener instalado en su dispositivo:
   use dbclientes_in5am;
 
 * Posteriormente, insertar un usuario mediante:  
-  INSERT INTO users (username, password, role)  
-  VALUES ('admin', 'AQUI_EL_HASH_GENERADO', 'ADMIN');
+  INSERT INTO usuarios (codigo_usuario, username, password, email, rol, estado)
+  VALUES (1, 'admin', 'AQUI_EL_HASH_GENERADO', 'correo@ejemplo.com', 'ROL', 1);
 
 7. Ahora, en base al puerto (véase en el paso 5), en su navegador de preferencia deberá ingresar en el buscador:  
    http://localhost:8081
 
 8. Esto lo llevará a un formulario de inicio de sesión, donde deberá ingresar el nombre y la contraseña del usuario previamente creado
 
-9. Una vez haya iniciado sesión, podrá acceder a los demás endpoints sin restricciones (/clientes, /productos, /usuarios, /ventas, /detalle-ventas)
+![Formulario de Inicio de Sesión](docs/images/kinalapp_images/img_5.png)
 
-10. Al ingresar a cualquiera de los mencionados, notará que no existe ningún dato. Para poder gestionarlos (crear, consultar, actualizar y eliminar), deberá utilizar el CRUD de cada entidad por medio de Postman.
-11. Se adjuntan las respectivas pruebas de cada metodo HTTPS, creado por medio de Postman
-* Clientes:
-  ![Crear Cliente](docs/images/clientes/img_1.png)
-  ![Listar Clientes](docs/images/clientes/img_2.png)
-  ![Buscar Cliente](docs/images/clientes/img_3.png)
-  ![Actualizar Cliente](docs/images/clientes/img_4.png)
-  ![Eliminar Cliente](docs/images/clientes/img_5.png)
-  ![Clientes Activos](docs/images/clientes/img_6.png)
+9. Una vez haya iniciado sesión, se le redigira al menú principal de la aplicación, donde tendra a su disponibilidad el CRUD correspondiente a cada entidad.
 
-* Productos:
-  ![Crear Producto](docs/images/productos/img_7.png)
-  ![Listar Productos](docs/images/productos/img_8.png)
-  ![Buscar Producto](docs/images/productos/img_9.png)
-  ![Actualizar Producto](docs/images/productos/img_10.png)
-  ![Eliminar Producto](docs/images/productos/img_11.png)
-  ![Productos Activos](docs/images/productos/img_12.png)
+![Menú Principal](docs/images/kinalapp_images/img_1.png)
 
-* Usuarios:
-  ![Crear Usuario](docs/images/usuarios/img_13.png)
-  ![Listar Usuarios](docs/images/usuarios/img_15.png)
-  ![Buscar Usuario](docs/images/usuarios/img_16.png)
-  ![Actualizar Usuario](docs/images/usuarios/img_17.png)
-  ![Eliminar Usuario](docs/images/usuarios/img_18.png)
-  ![Usuarios Activos](docs/images/usuarios/img_19.png)
+10. Al ingresar a cualquiera de las secciones presentadas en la imagen, tendra la opción de crear un elemento, según corresponda a la entidad (supongamos, Producto).
 
-* Ventas:
-  ![Crear Venta](docs/images/ventas/img_20.png)
-  ![Listar Ventas](docs/images/ventas/img_21.png)
-  ![Buscar Venta](docs/images/ventas/img_22.png)
-  ![Actualizar Venta](docs/images/ventas/img_23.png)
-  ![Eliminar Venta](docs/images/ventas/img_24.png)
-  ![Ventas Activas](docs/images/ventas/img_25.png)
+![Crear Producto](docs/images/kinalapp_images/img_2.png)
 
-* DetalleVentas:
-  ![Crear Detalle Venta](docs/images/detalle-ventas/img_26.png)
-  ![Listar Detalles Venta](docs/images/detalle-ventas/img_27.png)
-  ![Buscar Detalle Venta](docs/images/detalle-ventas/img_28.png)
-  ![Actualizar Detalle Venta](docs/images/detalle-ventas/img_29.png)
-  ![Eliminar Detalle Venta](docs/images/detalle-ventas/img_30.png)
+11. Una vez creado un elemento, tendra la opcion de modificar o eliminar el mismo, según lo requiera la situación.
+
+![Editar, Eliminar Producto](docs/images/kinalapp_images/img_3.png)
+
+12. Esto aplica a todas las entidades (Productos, Clientes, Ventas y Usuarios). En caso de que haya finalizado, puede cerrar sesión directamente desde la aplicación.
+
+![Cerrar Sesión](docs/images/kinalapp_images/img_4.png)
+
+13. ¡Muchas Gracias!
