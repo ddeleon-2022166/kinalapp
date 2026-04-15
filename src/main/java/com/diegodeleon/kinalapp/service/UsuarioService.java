@@ -100,4 +100,11 @@ public UsuarioService(UsuarioRepository usuarioRepository) { this.usuarioReposit
     public List<Usuario> listarUsuariosActivos() {
         return usuarioRepository.findByEstado(1);
     }
+
+    //Buscar usuarios
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Usuario> buscarPorUsername(String username) {
+        return usuarioRepository.findByUsername(username);
+    }
 }

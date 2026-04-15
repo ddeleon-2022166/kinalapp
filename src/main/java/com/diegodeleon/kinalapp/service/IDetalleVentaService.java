@@ -20,4 +20,6 @@ public interface IDetalleVentaService {
 
     //Metodo que busca un detalle de venta por su id
     boolean existePorCodigoDetalleVenta(Long codigoDetalleVenta);
+
+
 }
