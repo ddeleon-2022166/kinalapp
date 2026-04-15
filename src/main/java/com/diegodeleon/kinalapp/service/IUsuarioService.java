@@ -23,4 +23,7 @@ public interface IUsuarioService {
 
     //Metodo que devuelve los usuarios activos
     List<Usuario> listarUsuariosActivos();
+
+    //Metodo que busca usuarios por su username
+    Optional<Usuario> buscarPorUsername(String username);
 }
