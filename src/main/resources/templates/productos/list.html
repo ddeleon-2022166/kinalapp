@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos - KinalApp</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>kinalApp</h2>
+            <p>Menú</p>
+        </div>
+        <nav>
+            <a href="/home" class="nav-item">🏠 Tablero</a>
+            <a href="/web/productos" class="nav-item active">🛍️ Productos</a>
+            <a href="/web/clientes" class="nav-item">👤 Clientes</a>
+            <a href="/web/ventas" class="nav-item">💰 Ventas</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="nav-item logout-btn">🚪 Cerrar Sesión</button>
+            </form>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <h1 class="page-title">Productos</h1>
+            <div class="user-info">
+                <span><strong sec:authentication="name"></strong></span>
+                <div class="user-avatar">
+                    <span sec:authentication="name" th:text="${#strings.substring(#strings.toUpperCase(#strings.substring(_, 0, 1)), 0, 1)}">U</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h2>📋 Listado de Productos</h2>
+                <a href="/web/productos/nuevo" class="btn-primary">+ Nuevo Producto</a>
+            </div>
+
+            <div th:if="${success}" class="alert alert-success">✓ <span th:text="${success}"></span></div>
+            <div th:if="${error}" class="alert alert-error">⚠️ <span th:text="${error}"></span></div>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="producto : ${productos}">
+                    <td th:text="${producto.codigoProducto}">1</td>
+                    <td th:text="${producto.nombreProducto}">Producto</td>
+                    <td th:text="'Q' + ${#numbers.formatDecimal(producto.precio, 1, 2)}">Q0.00</td>
+                    <td>
+                        <span th:class="${producto.stock < 5} ? 'badge badge-low-stock' : ''" th:text="${producto.stock} + ' uds'">0</span>
+                    </td>
+                    <td>
+                        <span th:if="${producto.estado == 1}" class="badge badge-active">Activo</span>
+                        <span th:if="${producto.estado != 1}" class="badge badge-inactive">Inactivo</span>
+                    </td>
+                    <td>
+                        <a th:href="@{/web/productos/editar/{id}(id=${producto.codigoProducto})}" class="btn-secondary">✏️ Editar</a>
+                        <a th:href="@{/web/productos/eliminar/{id}(id=${producto.codigoProducto})}"
+                           class="btn-secondary btn-danger"
+                           onclick="return confirm('¿Eliminar este producto?')">🗑️ Eliminar</a>
+                    </td>
+                </tr>
+                <tr th:if="${productos.empty}">
+                    <td colspan="6" style="text-align: center; padding: 48px;">
+                        📭 No hay productos registrados
+                        <br><br>
+                        <a href="/web/productos/nuevo" class="btn-primary">+ Crear primer producto</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de Venta - KinalApp</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>kinalApp</h2>
+            <p>Menú</p>
+        </div>
+        <nav>
+            <a href="/home" class="nav-item">🏠 Tablero</a>
+            <a href="/web/productos" class="nav-item">🛍️ Productos</a>
+            <a href="/web/clientes" class="nav-item active">👤 Clientes</a>
+            <a href="/web/ventas" class="nav-item">💰 Ventas</a>
+            <a sec:authorize="hasRole('ADMIN')" href="/web/usuarios" class="nav-item">👥 Usuarios</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="nav-item logout-btn">📤 Cerrar Sesión</button>
+            </form>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <h1 class="page-title">Factura</h1>
+            <div class="user-info">
+                <span><strong sec:authentication="name"></strong></span>
+                <div class="user-avatar">
+                    <span sec:authentication="name" th:text="${#strings.substring(#strings.toUpperCase(#strings.substring(_, 0, 1)), 0, 1)}">U</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="invoice">
+            <div class="invoice-header">
+                <h1>KinalApp</h1>
+                <p>Factura de Venta</p>
+            </div>
+
+            <div class="invoice-info">
+                <div>
+                    <strong>Factura No:</strong> <span th:text="${venta.codigoVenta}">0001</span><br>
+                    <strong>Fecha:</strong> <span th:text="${venta.fecha}">2024-01-01</span><br>
+                    <strong>Vendedor:</strong> <span th:text="${venta.usuario != null ? venta.usuario.username : 'N/A'}">admin</span>
+                </div>
+                <div>
+                    <strong>Cliente:</strong> <span th:text="${venta.cliente != null ? venta.cliente.nombreCliente + ' ' + venta.cliente.apellidoCliente : 'N/A'}">Cliente</span><br>
+                    <strong>DPI:</strong> <span th:text="${venta.cliente != null ? venta.cliente.DPICliente : 'N/A'}">1234567890123</span><br>
+                    <strong>Dirección:</strong> <span th:text="${venta.cliente != null ? venta.cliente.direccion : 'N/A'}">Dirección</span>
+                </div>
+            </div>
+
+            <table class="invoice-table">
+                <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="detalle : ${detalles}">
+                    <td th:text="${detalle.producto != null ? detalle.producto.nombreProducto : 'N/A'}">Producto</td>
+                    <td th:text="${detalle.cantidad}">1</td>
+                    <td th:text="'Q' + ${#numbers.formatDecimal(detalle.precioUnitario, 1, 2)}">Q0.00</td>
+                    <td th:text="'Q' + ${#numbers.formatDecimal(detalle.subtotal, 1, 2)}">Q0.00</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="invoice-total">
+                Total a Pagar: Q <span th:text="${#numbers.formatDecimal(venta.total, 1, 2)}">0.00</span>
+            </div>
+
+            <div class="form-actions" style="margin-top: 30px;">
+                <button onclick="window.print()" class="btn-primary btn-print">🖨️ Imprimir</button>
+                <a href="/web/ventas" class="btn-secondary">← Volver a Ventas</a>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

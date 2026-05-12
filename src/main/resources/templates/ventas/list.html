@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Ventas - KinalApp</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>kinalApp</h2>
+            <p>Menú</p>
+        </div>
+        <nav>
+            <a href="/home" class="nav-item">🏠 Tablero</a>
+            <a href="/web/productos" class="nav-item">🛍️ Productos</a>
+            <a href="/web/clientes" class="nav-item active">👤 Clientes</a>
+            <a href="/web/ventas" class="nav-item">💰 Ventas</a>
+            <a sec:authorize="hasRole('ADMIN')" href="/web/usuarios" class="nav-item">👥 Usuarios</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="nav-item logout-btn">📤 Cerrar Sesión</button>
+            </form>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <h1 class="page-title">Ventas</h1>
+            <div class="user-info">
+                <span><strong sec:authentication="name"></strong></span>
+                <div class="user-avatar">
+                    <span sec:authentication="name" th:text="${#strings.substring(#strings.toUpperCase(#strings.substring(_, 0, 1)), 0, 1)}">U</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h2>📋 Listado de Ventas</h2>
+                <a href="/web/ventas/nueva" class="btn-primary">+ Nueva Venta</a>
+            </div>
+
+            <div th:if="${success}" class="alert alert-success">✓ <span th:text="${success}"></span></div>
+            <div th:if="${error}" class="alert alert-error">⚠️ <span th:text="${error}"></span></div>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="venta : ${ventas}">
+                    <td th:text="${venta.codigoVenta}">1</td>
+                    <td th:text="${venta.fecha}">2024-01-01</td>
+                    <td th:text="${venta.cliente != null ? venta.cliente.nombreCliente + ' ' + venta.cliente.apellidoCliente : 'N/A'}">Cliente</td>
+                    <td th:text="'Q' + ${#numbers.formatDecimal(venta.total, 1, 2)}">Q0.00</td>
+                    <td>
+                        <span th:if="${venta.estado == 1}" class="badge badge-active">Activo</span>
+                        <span th:if="${venta.estado != 1}" class="badge badge-inactive">Inactivo</span>
+                    </td>
+                    <td>
+                        <a th:href="@{/web/ventas/ver/{id}(id=${venta.codigoVenta})}" class="btn-secondary">👁️ Ver</a>
+                        <a th:href="@{/web/ventas/eliminar/{id}(id=${venta.codigoVenta})}"
+                           class="btn-secondary btn-danger"
+                           onclick="return confirm('¿Eliminar esta venta?')">🗑️ Eliminar</a>
+                    </td>
+                </tr>
+                <tr th:if="${ventas.empty}">
+                    <td colspan="6" style="text-align: center; padding: 48px;">
+                        📭 No hay ventas registradas
+                        <br><br>
+                        <a href="/web/ventas/nueva" class="btn-primary">+ Crear primera venta</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+</body>
+</html>

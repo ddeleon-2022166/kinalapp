@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Venta - KinalApp</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>kinalApp</h2>
+            <p>Menú</p>
+        </div>
+        <nav>
+            <a href="/home" class="nav-item">🏠 Tablero</a>
+            <a href="/web/productos" class="nav-item">🛍️ Productos</a>
+            <a href="/web/clientes" class="nav-item active">👤 Clientes</a>
+            <a href="/web/ventas" class="nav-item">💰 Ventas</a>
+            <a sec:authorize="hasRole('ADMIN')" href="/web/usuarios" class="nav-item">👥 Usuarios</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="nav-item logout-btn">📤 Cerrar Sesión</button>
+            </form>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <h1 class="page-title">Nueva Venta</h1>
+            <div class="user-info">
+                <span><strong sec:authentication="name"></strong></span>
+                <div class="user-avatar">
+                    <span sec:authentication="name" th:text="${#strings.substring(#strings.toUpperCase(#strings.substring(_, 0, 1)), 0, 1)}">U</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-container" style="max-width: 900px;">
+            <form th:action="@{/web/ventas/guardar}" th:object="${venta}" method="post" id="ventaForm">
+
+                <!-- Detalles de la venta -->
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>Cliente *</label>
+                        <select th:field="*{clienteDpi}" required>
+                            <option value="">Seleccione un cliente</option>
+                            <option th:each="cliente : ${clientes}"
+                                    th:value="${cliente.DPICliente}"
+                                    th:text="${cliente.nombreCliente} + ' ' + ${cliente.apellidoCliente}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Productos -->
+                <h3 style="margin: 20px 0 15px 0;">Productos</h3>
+                <div id="productos-container">
+                    <div class="producto-row" data-index="0">
+                        <button type="button" class="remove-product" onclick="removeProduct(this)">✕</button>
+                        <div class="form-row">
+                            <div class="form-field" style="flex: 2;">
+                                <label>Producto</label>
+                                <select name="productosIds" class="producto-select" required onchange="updatePrecio(this)">
+                                    <option value="">Cargando productos...</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Cantidad</label>
+                                <input type="number" name="cantidades" class="cantidad" min="1" required onchange="calcularSubtotal(this)">
+                            </div>
+                            <div class="form-field">
+                                <label>Precio Unitario</label>
+                                <input type="number" step="0.01" name="precios" class="precio" readonly>
+                            </div>
+                            <div class="form-field">
+                                <label>Subtotal</label>
+                                <input type="text" class="subtotal" readonly style="background: #e8f8f5; font-weight: bold;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-secondary" onclick="agregarProducto()" style="margin-top: 10px;">+ Agregar Producto</button>
+
+                <input type="hidden" name="total" id="totalHidden" value="0">
+
+                <div class="total-display">
+                    Total: Q <span id="totalGeneral">0.00</span>
+                </div>
+
+                <div class="form-actions">
+                    <a href="/web/ventas" class="btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn-primary">💾 Guardar Venta</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+
+<script>
+    let productosData = {};
+    let productoIndex = 1;
+
+    // Cargar productos desde la API REST
+    async function cargarProductos() {
+        try {
+            const response = await fetch('/api/ventas/productos');
+            const productos = await response.json();
+
+            for (let i = 0; i < productos.length; i++) {
+                const p = productos[i];
+                productosData[p.codigoProducto] = {
+                    nombre: p.nombreProducto,
+                    precio: p.precio,
+                    stock: p.stock
+                };
+            }
+
+            llenarTodosLosSelects();
+
+        } catch (error) {
+            console.error('Error al cargar productos:', error);
+            const selects = document.querySelectorAll('.producto-select');
+            selects.forEach(select => {
+                select.innerHTML = '<option value="">Error al cargar productos</option>';
+            });
+        }
+    }
+
+    function llenarSelect(selectElement) {
+        selectElement.innerHTML = '<option value="">Seleccione un producto</option>';
+        for (let id in productosData) {
+            const producto = productosData[id];
+            const option = document.createElement('option');
+            option.value = id;
+            option.textContent = producto.nombre + ' (Stock: ' + producto.stock + ' - Q' + producto.precio + ')';
+            option.setAttribute('data-precio', producto.precio);
+            selectElement.appendChild(option);
+        }
+    }
+
+    function llenarTodosLosSelects() {
+        const selects = document.querySelectorAll('.producto-select');
+        selects.forEach(select => {
+            llenarSelect(select);
+        });
+    }
+
+    function agregarProducto() {
+        const container = document.getElementById('productos-container');
+        const firstRow = document.querySelector('.producto-row');
+        const template = firstRow.cloneNode(true);
+        const index = productoIndex++;
+
+        template.setAttribute('data-index', index);
+
+        const select = template.querySelector('.producto-select');
+        if (select) {
+            llenarSelect(select);
+            select.value = '';
+        }
+
+        const cantidad = template.querySelector('.cantidad');
+        if (cantidad) cantidad.value = '';
+
+        const precio = template.querySelector('.precio');
+        if (precio) precio.value = '';
+
+        const subtotal = template.querySelector('.subtotal');
+        if (subtotal) subtotal.value = '';
+
+        container.appendChild(template);
+        actualizarTotal();
+    }
+
+    function removeProduct(btn) {
+        const row = btn.closest('.producto-row');
+        if (document.querySelectorAll('.producto-row').length > 1) {
+            row.remove();
+            actualizarTotal();
+        } else {
+            alert('Debe haber al menos un producto');
+        }
+    }
+
+    function updatePrecio(select) {
+        const row = select.closest('.producto-row');
+        const productoId = select.value;
+        const precioField = row.querySelector('.precio');
+        const cantidadField = row.querySelector('.cantidad');
+
+        if (productoId && productosData[productoId]) {
+            precioField.value = productosData[productoId].precio;
+            if (cantidadField.value && cantidadField.value > 0) {
+                calcularSubtotal(cantidadField);
+            }
+        } else {
+            precioField.value = '';
+            row.querySelector('.subtotal').value = '';
+            actualizarTotal();
+        }
+    }
+
+    function calcularSubtotal(input) {
+        const row = input.closest('.producto-row');
+        const cantidad = parseFloat(row.querySelector('.cantidad').value) || 0;
+        const precio = parseFloat(row.querySelector('.precio').value) || 0;
+        const subtotal = cantidad * precio;
+
+        row.querySelector('.subtotal').value = 'Q' + subtotal.toFixed(2);
+        actualizarTotal();
+    }
+
+    function actualizarTotal() {
+        let total = 0;
+        document.querySelectorAll('.subtotal').forEach(subtotalField => {
+            const valor = subtotalField.value;
+            if (valor && valor !== '') {
+                const numero = parseFloat(valor.replace('Q', ''));
+                if (!isNaN(numero)) total += numero;
+            }
+        });
+        document.getElementById('totalGeneral').innerText = total.toFixed(2);
+        document.getElementById('totalHidden').value = total.toFixed(2);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        cargarProductos();
+    });
+</script>
+</body>
+</html>
