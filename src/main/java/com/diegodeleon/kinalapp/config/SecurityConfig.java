@@ -23,13 +23,12 @@ public class SecurityConfig {
                         .requestMatchers("/css/**", "/styles.css", "/static/**", "/favicon.ico", "/logo.png").permitAll()
                         // Rutas públicas
                         .requestMatchers("/login", "/public/**").permitAll()
-                        // APIs REST (si las mantienes)
-                        .requestMatchers("/clientes/**").permitAll()
-                        .requestMatchers("/productos/**").permitAll()
-                        .requestMatchers("/ventas/**").permitAll()
-                        .requestMatchers("/detalle-ventas/**").permitAll()
                         // Vistas web
-                        .requestMatchers("/web/usuarios/**").hasRole("ADMIN")
+                        .requestMatchers("/web/productos/nuevo/**", "/web/productos/editar/**", "/web/productos/eliminar/**").hasRole("ADMIN")
+                        .requestMatchers("/web/clientes/nuevo/**", "/web/clientes/editar/**", "/web/clientes/eliminar/**").hasRole("ADMIN")
+                        .requestMatchers("/web/ventas/nueva/**", "/web/ventas/ver/**", "/web/ventas/eliminar/**").hasRole("ADMIN")
+                        .requestMatchers("/web/usuarios/nuevo/**", "/web/usuarios/editar/**", "/web/usuarios/eliminar/**").hasRole("ADMIN")
+                        .requestMatchers("/detalle-ventas/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
