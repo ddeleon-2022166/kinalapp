@@ -15,13 +15,13 @@
             <p>Menú</p>
         </div>
         <nav>
-            <a href="/home" class="nav-item">🏠 Tablero</a>
-            <a href="/web/productos" class="nav-item">🛍️ Productos</a>
-            <a href="/web/clientes" class="nav-item active">👤 Clientes</a>
-            <a href="/web/ventas" class="nav-item">💰 Ventas</a>
-            <a sec:authorize="hasRole('ADMIN')" href="/web/usuarios" class="nav-item">👥 Usuarios</a>
+            <a href="/home" class="nav-item active">Tablero</a>
+            <a href="/web/productos" class="nav-item">Productos</a>
+            <a href="/web/clientes" class="nav-item">Clientes</a>
+            <a href="/web/ventas" class="nav-item">Ventas</a>
+            <a sec:authorize="hasRole('ADMIN')" href="/web/usuarios" class="nav-item">Usuarios</a>
             <form th:action="@{/logout}" method="post">
-                <button type="submit" class="nav-item logout-btn">📤 Cerrar Sesión</button>
+                <button type="submit" class="nav-item logout-btn">Cerrar Sesión</button>
             </form>
         </nav>
     </aside>
@@ -39,26 +39,26 @@
 
         <div class="welcome-card">
             <div class="welcome-icon">
-                <span>✨</span>
+                <span></span>
             </div>
             <h1>¡Bienvenido!</h1>
             <p>Gestiona tus productos, clientes y ventas desde un solo lugar.</p>
 
             <div class="quick-actions">
                 <a href="/web/productos/nuevo" class="quick-card">
-                    <div>➕</div>
+                    <div></div>
                     <strong>Nuevo Producto</strong>
                 </a>
                 <a href="/web/clientes/nuevo" class="quick-card">
-                    <div>👤</div>
+                    <div></div>
                     <strong>Nuevo Cliente</strong>
                 </a>
                 <a href="/web/ventas/nueva" class="quick-card">
-                    <div>🛒</div>
+                    <div></div>
                     <strong>Registrar Venta</strong>
                 </a>
                 <a href="/web/productos" class="quick-card">
-                    <div>📊</div>
+                    <div></div>
                     <strong>Ver Reportes</strong>
                 </a>
             </div>

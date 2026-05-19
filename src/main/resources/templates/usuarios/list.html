@@ -14,13 +14,13 @@
             <p>Menú</p>
         </div>
         <nav>
-            <a href="/home" class="nav-item">🏠 Tablero</a>
-            <a href="/web/productos" class="nav-item">🛍️ Productos</a>
-            <a href="/web/clientes" class="nav-item active">👤 Clientes</a>
-            <a href="/web/ventas" class="nav-item">💰 Ventas</a>
-            <a sec:authorize="hasRole('ADMIN')" href="/web/usuarios" class="nav-item">👥 Usuarios</a>
+            <a href="/home" class="nav-item">Tablero</a>
+            <a href="/web/productos" class="nav-item">Productos</a>
+            <a href="/web/clientes" class="nav-item">Clientes</a>
+            <a href="/web/ventas" class="nav-item">Ventas</a>
+            <a sec:authorize="hasRole('ADMIN')" href="/web/usuarios" class="nav-item active">Usuarios</a>
             <form th:action="@{/logout}" method="post">
-                <button type="submit" class="nav-item logout-btn">📤 Cerrar Sesión</button>
+                <button type="submit" class="nav-item logout-btn">Cerrar Sesión</button>
             </form>
         </nav>
     </aside>
@@ -38,12 +38,12 @@
 
         <div class="table-container">
             <div class="table-header">
-                <h2>📋 Listado de Usuarios</h2>
+                <h2>Listado de Usuarios</h2>
                 <a href="/web/usuarios/nuevo" class="btn-primary">+ Nuevo Usuario</a>
             </div>
 
-            <div th:if="${success}" class="alert alert-success">✓ <span th:text="${success}"></span></div>
-            <div th:if="${error}" class="alert alert-error">⚠️ <span th:text="${error}"></span></div>
+            <div th:if="${success}" class="alert alert-success"><span th:text="${success}"></span></div>
+            <div th:if="${error}" class="alert alert-error"><span th:text="${error}"></span></div>
 
             <table>
                 <thead>
@@ -62,25 +62,25 @@
                     <td th:text="${usuario.username}">admin</td>
                     <td th:text="${usuario.email}">admin@kinalapp.com</td>
                     <td>
-                        <span th:if="${usuario.rol == 'ADMIN'}" class="badge badge-active">👑 Administrador</span>
-                        <span th:if="${usuario.rol == 'USER'}" class="badge">👤 Usuario</span>
+                        <span th:if="${usuario.rol == 'ADMIN'}" class="badge badge-active">Administrador</span>
+                        <span th:if="${usuario.rol == 'USER'}" class="badge">Usuario</span>
                     </td>
                     <td>
                         <span th:if="${usuario.estado == 1}" class="badge badge-active">Activo</span>
                         <span th:if="${usuario.estado != 1}" class="badge badge-inactive">Inactivo</span>
                     </td>
                     <td>
-                        <a th:href="@{/web/usuarios/editar/{id}(id=${usuario.codigoUsuario})}" class="btn-secondary">✏️ Editar</a>
+                        <a th:href="@{/web/usuarios/editar/{id}(id=${usuario.codigoUsuario})}" class="btn-secondary">Editar</a>
                         <a th:href="@{/web/usuarios/eliminar/{id}(id=${usuario.codigoUsuario})}"
                            class="btn-secondary btn-danger"
-                           onclick="return confirm('¿Eliminar este usuario?')">🗑️ Eliminar</a>
+                           onclick="return confirm('¿Eliminar este usuario?')">Eliminar</a>
                     </td>
                 </tr>
                 <tr th:if="${usuarios.empty}">
                     <td colspan="6" style="text-align: center; padding: 48px;">
-                        📭 No hay usuarios registrados
+                        No hay usuarios registrados
                         <br><br>
-                        <a href="/web/usuarios/nuevo" class="btn-primary">+ Crear primer usuario</a>
+                        <a href="/web/usuarios/nuevo" class="btn-primary">Crear primer usuario</a>
                     </td>
                 </tr>
                 </tbody>
