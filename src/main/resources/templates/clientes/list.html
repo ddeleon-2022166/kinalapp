@@ -10,17 +10,17 @@
 <div class="dashboard-container">
     <aside class="sidebar">
         <div class="sidebar-header">
-            <h2>kinalapp</h2>
+            <h2>kinalApp</h2>
             <p>Menú</p>
         </div>
         <nav>
-            <a href="/home" class="nav-item">🏠 Tablero</a>
-            <a href="/web/productos" class="nav-item">🛍️ Productos</a>
-            <a href="/web/clientes" class="nav-item active">👤 Clientes</a>
-            <a href="/web/ventas" class="nav-item">💰 Ventas</a>
-            <a sec:authorize="hasRole('ADMIN')" href="/web/usuarios" class="nav-item">👥 Usuarios</a>
+            <a href="/home" class="nav-item">Tablero</a>
+            <a href="/web/productos" class="nav-item">Productos</a>
+            <a href="/web/clientes" class="nav-item active">Clientes</a>
+            <a href="/web/ventas" class="nav-item">Ventas</a>
+            <a sec:authorize="hasRole('ADMIN')" href="/web/usuarios" class="nav-item">Usuarios</a>
             <form th:action="@{/logout}" method="post">
-                <button type="submit" class="nav-item logout-btn">📤 Cerrar Sesión</button>
+                <button type="submit" class="nav-item logout-btn">Cerrar Sesión</button>
             </form>
         </nav>
     </aside>
@@ -38,12 +38,12 @@
 
         <div class="table-container">
             <div class="table-header">
-                <h2>📋 Listado de Clientes</h2>
-                <a href="/web/clientes/nuevo" class="btn-primary">+ Nuevo Cliente</a>
+                <h2>Listado de Clientes</h2>
+                <a href="/web/clientes/nuevo" class="btn-primary">Nuevo Cliente</a>
             </div>
 
-            <div th:if="${success}" class="alert alert-success">✓ <span th:text="${success}"></span></div>
-            <div th:if="${error}" class="alert alert-error">⚠️ <span th:text="${error}"></span></div>
+            <div th:if="${success}" class="alert alert-success"><span th:text="${success}"></span></div>
+            <div th:if="${error}" class="alert alert-error"><span th:text="${error}"></span></div>
 
             <table>
                 <thead>
@@ -67,17 +67,17 @@
                         <span th:if="${cliente.estado != 1}" class="badge badge-inactive">Inactivo</span>
                     </td>
                     <td>
-                        <a th:href="@{/web/clientes/editar/{dpi}(dpi=${cliente.DPICliente})}" class="btn-secondary">✏️ Editar</a>
+                        <a th:href="@{/web/clientes/editar/{dpi}(dpi=${cliente.DPICliente})}" class="btn-secondary">Editar</a>
                         <a th:href="@{/web/clientes/eliminar/{dpi}(dpi=${cliente.DPICliente})}"
                            class="btn-secondary btn-danger"
-                           onclick="return confirm('¿Eliminar este cliente?')">🗑️ Eliminar</a>
+                           onclick="return confirm('¿Eliminar este cliente?')">Eliminar</a>
                     </td>
                 </tr>
                 <tr th:if="${clientes.empty}">
                     <td colspan="6" style="text-align: center; padding: 48px;">
-                        📭 No hay clientes registrados
+                        No hay clientes registrados
                         <br><br>
-                        <a href="/web/clientes/nuevo" class="btn-primary">+ Crear primer cliente</a>
+                        <a href="/web/clientes/nuevo" class="btn-primary">Crear primer cliente</a>
                     </td>
                 </tr>
                 </tbody>

@@ -14,13 +14,13 @@
             <p>Menú</p>
         </div>
         <nav>
-            <a href="/home" class="nav-item">🏠 Tablero</a>
-            <a href="/web/productos" class="nav-item">🛍️ Productos</a>
-            <a href="/web/clientes" class="nav-item active">👤 Clientes</a>
-            <a href="/web/ventas" class="nav-item">💰 Ventas</a>
-            <a sec:authorize="hasRole('ADMIN')" href="/web/usuarios" class="nav-item">👥 Usuarios</a>
+            <a href="/home" class="nav-item">Tablero</a>
+            <a href="/web/productos" class="nav-item">Productos</a>
+            <a href="/web/clientes" class="nav-item">Clientes</a>
+            <a href="/web/ventas" class="nav-item">Ventas</a>
+            <a sec:authorize="hasRole('ADMIN')" href="/web/usuarios" class="nav-item active">Usuarios</a>
             <form th:action="@{/logout}" method="post">
-                <button type="submit" class="nav-item logout-btn">📤 Cerrar Sesión</button>
+                <button type="submit" class="nav-item logout-btn">Cerrar Sesión</button>
             </form>
         </nav>
     </aside>
@@ -70,22 +70,22 @@
                         <label>Rol *</label>
                         <select th:field="*{rol}" required>
                             <option value="">Seleccione un rol</option>
-                            <option value="ADMIN">👑 Administrador</option>
-                            <option value="USER">👤 Usuario</option>
+                            <option value="ADMIN">Administrador</option>
+                            <option value="USER">Usuario</option>
                         </select>
                     </div>
                     <div class="form-field">
                         <label>Estado</label>
                         <select th:field="*{estado}">
-                            <option th:value="1">✓ Activo</option>
-                            <option th:value="0">✗ Inactivo</option>
+                            <option th:value="1">Activo</option>
+                            <option th:value="0">Inactivo</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-actions">
                     <a href="/web/usuarios" class="btn-secondary">Cancelar</a>
-                    <button type="submit" class="btn-primary">💾 Guardar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
                 </div>
             </form>
 
@@ -123,22 +123,22 @@
                         <label>Rol *</label>
                         <select th:field="*{rol}" required>
                             <option value="">Seleccione un rol</option>
-                            <option value="ADMIN">👑 Administrador</option>
-                            <option value="USER">👤 Usuario</option>
+                            <option value="ADMIN">Administrador</option>
+                            <option value="USER">Usuario</option>
                         </select>
                     </div>
                     <div class="form-field">
                         <label>Estado</label>
                         <select th:field="*{estado}">
-                            <option th:value="1">✓ Activo</option>
-                            <option th:value="0">✗ Inactivo</option>
+                            <option th:value="1">Activo</option>
+                            <option th:value="0">Inactivo</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-actions">
                     <a href="/web/usuarios" class="btn-secondary">Cancelar</a>
-                    <button type="submit" class="btn-primary">💾 Actualizar</button>
+                    <button type="submit" class="btn-primary">Actualizar</button>
                 </div>
             </form>
         </div>

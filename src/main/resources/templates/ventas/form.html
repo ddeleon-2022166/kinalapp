@@ -17,13 +17,13 @@
             <p>Menú</p>
         </div>
         <nav>
-            <a href="/home" class="nav-item">🏠 Tablero</a>
-            <a href="/web/productos" class="nav-item">🛍️ Productos</a>
-            <a href="/web/clientes" class="nav-item active">👤 Clientes</a>
-            <a href="/web/ventas" class="nav-item">💰 Ventas</a>
-            <a sec:authorize="hasRole('ADMIN')" href="/web/usuarios" class="nav-item">👥 Usuarios</a>
+            <a href="/home" class="nav-item">Tablero</a>
+            <a href="/web/productos" class="nav-item">Productos</a>
+            <a href="/web/clientes" class="nav-item">Clientes</a>
+            <a href="/web/ventas" class="nav-item active">Ventas</a>
+            <a sec:authorize="hasRole('ADMIN')" href="/web/usuarios" class="nav-item">Usuarios</a>
             <form th:action="@{/logout}" method="post">
-                <button type="submit" class="nav-item logout-btn">📤 Cerrar Sesión</button>
+                <button type="submit" class="nav-item logout-btn">Cerrar Sesión</button>
             </form>
         </nav>
     </aside>
@@ -42,7 +42,6 @@
         <div class="form-container" style="max-width: 900px;">
             <form th:action="@{/web/ventas/guardar}" th:object="${venta}" method="post" id="ventaForm">
 
-                <!-- Detalles de la venta -->
                 <div class="form-row">
                     <div class="form-field">
                         <label>Cliente *</label>
@@ -56,7 +55,6 @@
                     </div>
                 </div>
 
-                <!-- Productos -->
                 <h3 style="margin: 20px 0 15px 0;">Productos</h3>
                 <div id="productos-container">
                     <div class="producto-row" data-index="0">
@@ -94,7 +92,7 @@
 
                 <div class="form-actions">
                     <a href="/web/ventas" class="btn-secondary">Cancelar</a>
-                    <button type="submit" class="btn-primary">💾 Guardar Venta</button>
+                    <button type="submit" class="btn-primary">Guardar Venta</button>
                 </div>
             </form>
         </div>
@@ -105,7 +103,7 @@
     let productosData = {};
     let productoIndex = 1;
 
-    // Cargar productos desde la API REST
+    //Cargar productos desde la API REST
     async function cargarProductos() {
         try {
             const response = await fetch('/api/ventas/productos');

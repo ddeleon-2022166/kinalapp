@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title th:text="${titulo}">Formulario - KinalApp</title>
@@ -13,12 +13,13 @@
             <p>Menú</p>
         </div>
         <nav>
-            <a href="/home" class="nav-item">🏠 Tablero</a>
-            <a href="/web/productos" class="nav-item active">🛍️ Productos</a>
-            <a href="/web/clientes" class="nav-item">👤 Clientes</a>
-            <a href="/web/ventas" class="nav-item">💰 Ventas</a>
+            <a href="/home" class="nav-item">Tablero</a>
+            <a href="/web/productos" class="nav-item active">Productos</a>
+            <a href="/web/clientes" class="nav-item">Clientes</a>
+            <a href="/web/ventas" class="nav-item">Ventas</a>
+            <a sec:authorize="hasRole('ADMIN')" href="/web/usuarios" class="nav-item">Usuarios</a>
             <form th:action="@{/logout}" method="post">
-                <button type="submit" class="nav-item logout-btn">🚪 Cerrar Sesión</button>
+                <button type="submit" class="nav-item logout-btn">Cerrar Sesión</button>
             </form>
         </nav>
     </aside>
@@ -61,14 +62,14 @@
                 <div class="form-field">
                     <label>Estado</label>
                     <select th:field="*{estado}">
-                        <option th:value="1">✓ Activo</option>
-                        <option th:value="0">✗ Inactivo</option>
+                        <option th:value="1">Activo</option>
+                        <option th:value="0">Inactivo</option>
                     </select>
                 </div>
 
                 <div class="form-actions">
                     <a href="/web/productos" class="btn-secondary">Cancelar</a>
-                    <button type="submit" class="btn-primary">💾 Guardar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
                 </div>
             </form>
         </div>
